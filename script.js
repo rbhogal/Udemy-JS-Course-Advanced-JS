@@ -1,4 +1,5 @@
 // Function constructor
+
 /*
 var john = {
     name: 'John',
@@ -210,9 +211,10 @@ playerPointGuard('Rondo');
 
 
 ////////////////////////////////////////
-// Lecture: IIFE - immedieatly invoked funciotn expression 
+// Lecture: IIFE - immedieatly invoked function expression 
 
 /*
+// First Way
 function game() {
     var score = Math.random() *10;
     console.log(score >= 5);
@@ -222,7 +224,7 @@ game();
 */
 
 /*
-
+// Data Private Way
 (function () {
     var score = Math.random() *10;
     console.log(score >= 5);
@@ -239,7 +241,7 @@ game();
 
 ////////////////////////////////////
 // Lectures: Closures
-
+/*
 function retirement(retirementAge){
     var a = ' years left until retirment.';
     return function(yearOfBirth) {
@@ -257,7 +259,7 @@ retirementGermany(1990);
 retirementUSA(1990);
 retirementIceland(1990);
 
-
+*/
 
 //retirement(66)(1990);
 
@@ -299,7 +301,7 @@ interviewQuestion('teacher')('John');
 
 //////////////////////////////////////////////////
 // Lecture: Bind, Call and Apply
-
+/*
 var john = {
     name: 'John',
     age: 26,
@@ -345,5 +347,116 @@ johnFriendly('night');
 
 var emilyFormal = john.presentation.bind(emily, 'formal');
 emilyFormal('afternoon');
+
+
+
+
+var years = [1990, 1965, 1937, 2005, 1998];
+
+function arrayCalc(arr, fn) {
+    var arrRes = [];
+    for (var i = 0; i < arr.length; i++) {
+        arrRes.push(fn(arr[i]));
+    }
+    return arrRes;
+}
+
+function calculateAge(el) {
+    return 2016 - el;
+}
+
+function isFullAge(limit, el) {
+    return el >= limit;
+}
+
+var ages = arrayCalc(years, calculateAge);
+var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20)); // the same as ages but difference is we use bind to preset a parameter in the full age function (to 20)
+console.log(ages);
+console.log(fullJapan);
+*/
+
+////////////////////////////////////////
+// Coding Challenge 7
+
+// 1. Build a function constructor called Question to describe a question. A question should include:
+// a) question itself
+// b) the answers from which the player can choose the correct one (choose an adwquate data structure here, array, object, etc.)
+// c) correct answer (I would use a number for this)
+
+/*
+var Person = function(name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+    
+}
+
+Person.prototype.calculateAge = function() {
+        console.log(2016-this.yearOfBirth);
+};
+
+Person.prototype.lastName = 'Smith';
+
+var john = new Person('John', 1990, 'teacher');
+var jane = new Person('Jane', 1969, 'designer');
+var mark = new Person('Mark', 1948, 'retired');
+
+john.calculateAge();
+jane.calculateAge();
+mark.calculateAge();
+
+console.log(john.lastName);
+console.log(jane.lastName);
+console.log(mark.lastName);
+*/
+
+
+var Question = function(question, a, b, c, correct) {
+    this.question = question;
+    this.answers = [a, b, c];
+    this.correct = correct;
+}
+
+var championships = new Question('How many championships have the Los Angeles Lakers won?', 15, 16, 17, '1');
+var headCoach = new Question('Who is the Los Angeles Lakers\' head coach?', 'Frank Vogel', 'Nick Nurse', 'Doc Rivers', '0');
+var bestPlayer = new Question('Who is the best player on the Los Angeles Lakers?', 'Anthony Davis', 'Kwahi Leonard', 'LeBron James', '2');
+
+questions = [championships, headCoach, bestPlayer]; 
+
+Question.prototype.askQuestion = function() {
+
+    console.log(this.question)
+    for ( i = 0; i < this.answers.length; i++) {
+        console.log(i + ': ' + this.answers[i]);
+    }
+
+    answer = window.prompt('Select the correct answer (type in number)');
+
+    this.checkAnswer();
+
+}
+
+Question.prototype.checkAnswer = function() {
+    if (answer === this.correct) {
+        console.log('Correct!');
+    } else {
+        console.log('Incorrect');
+    }    
+}
+
+
+var questionNumber = Math.floor(Math.random() * Math.floor(3));
+
+(questions[questionNumber].askQuestion)();
+
+
+
+
+
+
+
+
+
+
 
 
