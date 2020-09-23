@@ -250,5 +250,100 @@ function retirement(retirementAge){
 
 var retirementUSA = retirement(66);
 retirementUSA(1990);
+var retirementGermany = retirement(65);
+var retirementIceland = retirement(67);
 
-retirement(66)(1990);
+retirementGermany(1990);
+retirementUSA(1990);
+retirementIceland(1990);
+
+
+
+//retirement(66)(1990);
+
+/*
+function interviewQuestion(job) {
+    if (job === 'designer') {
+        return function(name) {    // Anonymous function
+            console.log(name + ', can you please explain UX design is?');
+        }
+    } else if (job === 'teacher') {
+        return function(name) {
+            console.log('What subject do you teach, ' + name + '?');
+        }
+    } else {
+        return function(name) {
+            console.log('Hello ' + name + ', what do you do?');
+        }
+    } 
+}
+*/
+
+/*
+
+function interviewQuestion(job) {
+    return function(name) {
+        if (job === 'designer') {
+            console.log(name + ', can you please explain UX design is?');
+        } else if (job === 'teacher') {
+            console.log('What subject do you teach, ' + name + '?');
+        } else {
+            console.log('Hello ' + name + ', what do you do?');
+        }
+    }
+}
+
+interviewQuestion('teacher')('John');
+*/
+
+
+//////////////////////////////////////////////////
+// Lecture: Bind, Call and Apply
+
+var john = {
+    name: 'John',
+    age: 26,
+    job: 'teacher',
+    presentation: function(style, timeOfDay) {
+        if (style === 'formal') {
+            console.log('Good ' + timeOfDay + ', Ladies and gentlemen! I\'m ' + this.name + ' and I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old. Have a nice ' + timeOfDay + '.');
+        } else if (style === 'friendly') {
+            console.log('Hey! What\'s up? I\'m ' + this.name + ' I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old. Have a nice ' + timeOfDay + '.');
+        }
+    }
+}
+
+var emily = {
+    name: 'Emily',
+    age: 35,
+    job: 'designer'
+};
+
+var emily = {
+    name: 'Emily',
+    age: 35,
+    job: 'designer'
+};
+
+
+
+john.presentation('formal', 'morning'); 
+
+// call method - allows you to set "this" variable to emily
+john.presentation.call(emily, 'friendly', 'afternoon');
+
+// apply method - similar to call but difference is it accepts arguments as an array
+//john.presentation.apply(emily, ['friendly'], ['afternoon'])
+
+// bind method - similar to call. allows us to set this" variable, but bind doesn't immediately call the function but instead it generates a copy to store somewhere.
+// Useful to create functions with preset arguments 
+
+var johnFriendly = john.presentation.bind(john, 'friendly');
+
+johnFriendly('morning');
+johnFriendly('night');
+
+var emilyFormal = john.presentation.bind(emily, 'formal');
+emilyFormal('afternoon');
+
+
