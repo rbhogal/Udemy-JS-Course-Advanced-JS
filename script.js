@@ -384,33 +384,6 @@ console.log(fullJapan);
 // c) correct answer (I would use a number for this)
 
 /*
-var Person = function(name, yearOfBirth, job) {
-    this.name = name;
-    this.yearOfBirth = yearOfBirth;
-    this.job = job;
-    
-}
-
-Person.prototype.calculateAge = function() {
-        console.log(2016-this.yearOfBirth);
-};
-
-Person.prototype.lastName = 'Smith';
-
-var john = new Person('John', 1990, 'teacher');
-var jane = new Person('Jane', 1969, 'designer');
-var mark = new Person('Mark', 1948, 'retired');
-
-john.calculateAge();
-jane.calculateAge();
-mark.calculateAge();
-
-console.log(john.lastName);
-console.log(jane.lastName);
-console.log(mark.lastName);
-*/
-
-
 var Question = function(question, a, b, c, correct) {
     this.question = question;
     this.answers = [a, b, c];
@@ -424,7 +397,6 @@ var bestPlayer = new Question('Who is the best player on the Los Angeles Lakers?
 questions = [championships, headCoach, bestPlayer]; 
 
 Question.prototype.askQuestion = function() {
-
     console.log(this.question)
     for ( i = 0; i < this.answers.length; i++) {
         console.log(i + ': ' + this.answers[i]);
@@ -433,7 +405,7 @@ Question.prototype.askQuestion = function() {
     answer = window.prompt('Select the correct answer (type in number)');
 
     this.checkAnswer();
-
+    
 }
 
 Question.prototype.checkAnswer = function() {
@@ -444,19 +416,67 @@ Question.prototype.checkAnswer = function() {
     }    
 }
 
-
 var questionNumber = Math.floor(Math.random() * Math.floor(3));
-
 (questions[questionNumber].askQuestion)();
+*/
+
+////////////////////////////////////////
+// Coding Challenge 7: Expert Level 
 
 
+// Question Constructor
+var Question = function(question, a, b, c, correct) {
+    this.question = question;
+    this.answers = [a, b, c];
+    this.correct = correct;
+}
 
+// Ask Question
+Question.prototype.askQuestion = function() {
+    console.log(this.question)
+    for ( i = 0; i < this.answers.length; i++) {
+        console.log(i + ': ' + this.answers[i]);
+    }
 
+    answer = window.prompt('Select the correct answer (type in number)');
 
+    this.checkAnswer();
+    
+}
 
+// Check correct answer
+Question.prototype.checkAnswer = function() {
+   
+    if (answer === 'exit') {
+        gamePlaying = false;
+    } else if (answer === this.correct) {
+        console.log('Correct!');
+    } else {
+        console.log('Incorrect');
+    }    
+    nextQuestion();
+}
 
+// Questions
+var championships = new Question('How many championships have the Los Angeles Lakers won?', 15, 16, 17, '1');
+var headCoach = new Question('Who is the Los Angeles Lakers\' head coach?', 'Frank Vogel', 'Nick Nurse', 'Doc Rivers', '0');
+var bestPlayer = new Question('Who is the best player on the Los Angeles Lakers?', 'Anthony Davis', 'Kwahi Leonard', 'LeBron James', '2');
+var questions = [championships, headCoach, bestPlayer]; 
+var gamePlaying; 
 
+init();
 
+function init() {
+    gamePlaying = true; 
+    var questionNumber = Math.floor(Math.random() * Math.floor(3));
+        (questions[questionNumber].askQuestion)();
+}
 
+function nextQuestion() {
+    if (gamePlaying) {
+        var questionNumber = Math.floor(Math.random() * Math.floor(3));
+        questions[questionNumber].askQuestion();
+    }
+}
 
 
